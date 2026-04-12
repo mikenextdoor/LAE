@@ -1,1 +1,2 @@
-open class Person
+open class Person() {
+}

@@ -1,1 +1,3 @@
-class Account(var balance: Long)
+class Account(var Balance: Long) {
+
+}

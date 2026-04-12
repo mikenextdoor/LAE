@@ -1,1 +1,3 @@
-class Student : Person() { init { } }
+class Student : Person() { 
+    init { }
+}

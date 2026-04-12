@@ -1,1 +1,5 @@
-class Student : Person() { init { } }
+public class Student extends Person {
+    {
+        // init { }
+    }
+}
