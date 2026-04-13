@@ -17,12 +17,17 @@ repositories {
 dependencies {
     // Use the Kotlin Test integration.
     testImplementation(kotlin("test"))
+
+    // H2 in-memory database for benchmarking
+    implementation("com.h2database:h2:2.4.240")
+
+    implementation(project(":utility"))
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 

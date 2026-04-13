@@ -1,11 +1,8 @@
 package pt.isel
 
-import junit.framework.TestCase.assertNotNull
-import junit.framework.TestCase.assertTrue
 import org.example.classes.*
 import org.example.jdbc.InsertsJDBC
 import org.example.jdbc.QueriesJDBC
-import org.example.reflection.*
 import org.h2.jdbcx.JdbcDataSource
 import java.sql.Connection
 import kotlin.test.Test

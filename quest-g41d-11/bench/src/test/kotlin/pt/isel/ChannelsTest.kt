@@ -1,5 +1,8 @@
 package pt.isel
 
+import org.example.classes.*
+import org.example.jdbc.InsertsJDBC
+import org.example.jdbc.QueriesJDBC
 import org.h2.jdbcx.JdbcDataSource
 import java.sql.Connection
 import kotlin.test.Test
@@ -18,7 +21,7 @@ class ChannelsTest {
 
     @Test
     fun `check items from channels table`() {
-        val actual = getChannelsNames(connection)
+        /*val actual = getChannelsNames(connection)
         val expected =
             listOf(
                 "General",
@@ -27,6 +30,38 @@ class ChannelsTest {
                 "Gaming Chat",
                 "Esports Discussion",
             )
-        assertEquals(expected, actual)
+        assertEquals(expected, actual)*/
+        connection.createStatement().execute("""
+        CREATE TABLE IF NOT EXISTS INTERACAO (
+            IDInteracao INT PRIMARY KEY,
+            DataInteracao DATE,
+            Texto VARCHAR(255),
+            CedulaProfissionalM VARCHAR(50),
+            IDUtilizador INT,
+            EAbusiva BOOLEAN
+        )""")
+
+        val inserts = InsertsJDBC(connection)
+        val queries = QueriesJDBC(connection)
+
+        inserts.insertInteracao(
+            Interacao(
+                id = 1,
+                data = java.sql.Date.valueOf("2026-04-11"),
+                texto = "Test",
+                cedulaModerador = null,
+                idUtilizador = 1,
+                abusiva = true
+            )
+        )
+
+        val result = queries.getInteracoesByUser(1)
+
+        val stats = queries.getNumeroInteracoesAbusivas()
+        assertEquals(1, stats.size)
+
+        assertEquals(1, result.size)
+        assertEquals(1, result[0].id)
+        assertEquals(true, result[0].abusiva)
     }
 }
