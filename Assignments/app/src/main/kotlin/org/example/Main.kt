@@ -1,3 +1,4 @@
+import org.example.classes.Interacao
 import java.sql.*
 import java.util.Properties
 
