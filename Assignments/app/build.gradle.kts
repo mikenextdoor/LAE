@@ -22,12 +22,14 @@ dependencies {
     implementation("com.h2database:h2:2.4.240")
 
     implementation(project(":utility"))
+
+    implementation(kotlin("reflect"))
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(23)
     }
 }
 
