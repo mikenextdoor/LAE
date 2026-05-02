@@ -7,16 +7,16 @@ import java.sql.Connection
 
 class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
-    private val interacaoFormatter = ReflectionFormatter(Interacao::class)
-    private val casoFormatter = ReflectionFormatter(Caso::class)
-    private val interacaoResumoFormatter = ReflectionFormatter(InteracaoResumo::class)
-    private val interacaoCasoFormatter = ReflectionFormatter(InteracaoCaso::class)
-    private val casoDetalhadoFormatter = ReflectionFormatter(CasoDetalhado::class)
-    private val estatisticaAbusoFormatter = ReflectionFormatter(EstatisticaAbuso::class)
-    private val casosPorInteracaoFormatter = ReflectionFormatter(CasosPorInteracao::class)
-    private val estatisticaPsicologoFormatter = ReflectionFormatter(EstatisticaPsicologo::class)
-    private val estatisticaAreaFormatter = ReflectionFormatter(EstatisticaArea::class)
-    private val psicologoIntervencoesFormatter = ReflectionFormatter(PsicologoIntervencoes::class)
+    private val interacaoFormatter = ClassFormatter(Interacao::class)
+    private val casoFormatter = ClassFormatter(Caso::class)
+    private val interacaoResumoFormatter = ClassFormatter(InteracaoResumo::class)
+    private val interacaoCasoFormatter = ClassFormatter(InteracaoCaso::class)
+    private val casoDetalhadoFormatter = ClassFormatter(CasoDetalhado::class)
+    private val estatisticaAbusoFormatter = ClassFormatter(EstatisticaAbuso::class)
+    private val casosPorInteracaoFormatter = ClassFormatter(CasosPorInteracao::class)
+    private val estatisticaPsicologoFormatter = ClassFormatter(EstatisticaPsicologo::class)
+    private val estatisticaAreaFormatter = ClassFormatter(EstatisticaArea::class)
+    private val psicologoIntervencoesFormatter = ClassFormatter(PsicologoIntervencoes::class)
 
     override fun getInteracoesByUser(userId: Int): List<Interacao> {
 
@@ -29,7 +29,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, userId)
             val rs = ps.executeQuery()
-            return interacaoFormatter.mapFrom(rs)
+            return interacaoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -42,7 +42,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, interacaoId)
             val rs = ps.executeQuery()
-            return casoFormatter.mapFrom(rs)
+            return casoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -55,7 +55,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
-            return interacaoResumoFormatter.mapFrom(rs)
+            return interacaoResumoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -69,7 +69,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, userId)
             val rs = ps.executeQuery()
-            return interacaoCasoFormatter.mapFrom(rs)
+            return interacaoCasoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -82,7 +82,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, id)
             val rs = ps.executeQuery()
-            val list = casoDetalhadoFormatter.mapFrom(rs)
+            val list = casoDetalhadoFormatter.toClassFormatter(rs)
             return list.firstOrNull()
         }
     }
@@ -97,7 +97,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
-            return estatisticaAbusoFormatter.mapFrom(rs)
+            return estatisticaAbusoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -111,7 +111,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
-            return casosPorInteracaoFormatter.mapFrom(rs)
+            return casosPorInteracaoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -131,7 +131,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
-            return estatisticaPsicologoFormatter.mapFrom(rs)
+            return estatisticaPsicologoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -151,7 +151,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
-            return estatisticaAreaFormatter.mapFrom(rs)
+            return estatisticaAreaFormatter.toClassFormatter(rs)
         }
     }
 
@@ -188,7 +188,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
 
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
-            return casoFormatter.mapFrom(rs)
+            return casoFormatter.toClassFormatter(rs)
         }
     }
 
@@ -207,7 +207,7 @@ class QueriesReflection(private val connection: Connection) : QueriesInterface {
             ps.setInt(1, minGravidade)
             ps.setInt(2, minIntervencoes)
             val rs = ps.executeQuery()
-            return psicologoIntervencoesFormatter.mapFrom(rs)
+            return psicologoIntervencoesFormatter.toClassFormatter(rs)
         }
     }
 

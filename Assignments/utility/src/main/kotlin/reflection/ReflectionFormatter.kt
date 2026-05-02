@@ -1,3 +1,4 @@
+/*
 package reflection
 
 import java.sql.ResultSet
@@ -35,3 +36,4 @@ class ReflectionFormatter<T: Any>(private val clazz: KClass<T>): ClassFormatter<
         return resultList
     }
 }
+*/
