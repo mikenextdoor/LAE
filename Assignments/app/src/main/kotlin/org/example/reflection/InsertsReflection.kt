@@ -6,7 +6,9 @@ import reflection.*
 import java.sql.Connection
 import java.sql.Types
 
-class InsertsReflection(private val connection: Connection) : InsertsInterface {
+class InsertsReflection(
+    private val connection: Connection,
+) : InsertsInterface {
     override fun insertInteracao(interacao: Interacao) {
         val (sql, values) = buildInsert(interacao, "INTERACAO")
 

@@ -5,5 +5,5 @@ data class Psicologist(
     override val email: String,
     override val nickName: String,
     val professionalCard: String,
-    val specializationArea: String
+    val specializationArea: String,
 ) : User(id, email, nickName)

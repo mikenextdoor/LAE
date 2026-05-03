@@ -4,5 +4,5 @@ package reflection
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.PROPERTY)
 annotation class Column(
-    val columnName: String
+    val columnName: String,
 )

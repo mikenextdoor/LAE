@@ -3,24 +3,30 @@ package reflection
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
-fun <T: Any> buildInsert(obj: T, tableName: String): Pair<String, List<Any?>> {
+fun <T : Any> buildInsert(
+    obj: T,
+    tableName: String,
+): Pair<String, List<Any?>> {
     val kClass = obj::class
     val properties = kClass.memberProperties
 
-    val columns = properties.map {
-        it.findAnnotation<Column>()?.columnName ?: it.name
-    }
+    val columns =
+        properties.map {
+            it.findAnnotation<Column>()?.columnName ?: it.name
+        }
 
-    val values = properties.map {
-        it.getter.call(obj)
-    }
+    val values =
+        properties.map {
+            it.getter.call(obj)
+        }
 
     val sqlString = columns.joinToString(", ") { "?" }
-    val sql = """
+    val sql =
+        """
         INSERT INTO $tableName 
             (${columns.joinToString(", ")})
             VALUES ($sqlString)
-    """.trimIndent()
+        """.trimIndent()
 
     return Pair(sql, values)
 }

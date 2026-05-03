@@ -4,14 +4,16 @@ import org.example.classes.*
 import org.example.interfaces.*
 import java.sql.Connection
 
-class InsertsJDBC(private val connection: Connection) : InsertsInterface {
+class InsertsJDBC(
+    private val connection: Connection,
+) : InsertsInterface {
     override fun insertInteracao(interacao: Interacao) {
-
-        val sql = """
-        INSERT INTO INTERACAO
-        (IDInteracao, DataInteracao, Texto, CedulaProfissionalM, IDUtilizador, EAbusiva)
-        VALUES (?, ?, ?, ?, ?, ?)
-        """.trimIndent()
+        val sql =
+            """
+            INSERT INTO INTERACAO
+            (IDInteracao, DataInteracao, Texto, CedulaProfissionalM, IDUtilizador, EAbusiva)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """.trimIndent()
 
         connection.prepareStatement(sql).use { ps ->
 

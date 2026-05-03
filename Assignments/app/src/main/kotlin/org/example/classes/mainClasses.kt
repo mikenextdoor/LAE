@@ -9,24 +9,24 @@ data class Interacao(
     @Column("Texto") val texto: String?,
     @Column("CedulaProfissionalM") val cedulaModerador: String?,
     @Column("IDUtilizador") val idUtilizador: Int,
-    @Column("EAbusiva") val abusiva: Boolean?
+    @Column("EAbusiva") val abusiva: Boolean?,
 )
 
 data class Caso(
     @Column("IDCaso") val id: String,
     @Column("AreaAtuacao") val areaAtuacao: String?,
-    @Column("GrauGravidade") val grauGravidade: Int?
+    @Column("GrauGravidade") val grauGravidade: Int?,
 )
 
 data class InteracaoResumo(
     @Column("IDInteracao") val id: Int,
     @Column("NickName") val nickName: String,
-    @Column("EAbusiva") val abusiva: Boolean?
+    @Column("EAbusiva") val abusiva: Boolean?,
 )
 
 data class InteracaoCaso(
     @Column("IDInteracao") val interacaoId: Int,
-    @Column("IDCaso") val casoId: String?
+    @Column("IDCaso") val casoId: String?,
 )
 
 data class CasoDetalhado(
@@ -39,18 +39,18 @@ data class CasoDetalhado(
     @Column("GrauGravidade") val grauGravidade: Int?,
     @Column("DataAvaliacao") val dataAvaliacao: Date?,
     @Column("TextoAD") val textoAD: String?,
-    @Column("CedulaProfissionalP") val psicologoId: String?
+    @Column("CedulaProfissionalP") val psicologoId: String?,
 )
 
 data class EstatisticaAbuso(
     @Column("EAbusiva") val abusiva: Boolean,
-    @Column("Total") val total: Int
+    @Column("Total") val total: Int,
 )
 
 data class CasosPorInteracao(
     @Column("IDInteracao") val interacaoId: Int,
     @Column("NumCasos") val numCasos: Int,
-    @Column("MediaGravidade") val mediaGravidade: Double?
+    @Column("MediaGravidade") val mediaGravidade: Double?,
 )
 
 data class EstatisticaPsicologo(
@@ -58,7 +58,7 @@ data class EstatisticaPsicologo(
     @Column("NumCasos") val numCasos: Int,
     @Column("CasosAvaliados") val casosAvaliados: Int,
     @Column("MediaGravidade") val mediaGravidade: Double?,
-    @Column("MaxGravidade") val maxGravidade: Int?
+    @Column("MaxGravidade") val maxGravidade: Int?,
 )
 
 data class EstatisticaArea(
@@ -67,10 +67,10 @@ data class EstatisticaArea(
     @Column("CasosIniciados") val casosIniciados: Int,
     @Column("CasosAvaliados") val casosAvaliados: Int,
     @Column("CasosFechados") val casosFechados: Int,
-    @Column("MediaGravidade") val mediaGravidade: Double?
+    @Column("MediaGravidade") val mediaGravidade: Double?,
 )
 
 data class PsicologoIntervencoes(
     @Column("CedulaProfissionalP") val psicologoId: String,
-    @Column("TotalIntervencoes") val totalIntervencoes: Int
+    @Column("TotalIntervencoes") val totalIntervencoes: Int,
 )

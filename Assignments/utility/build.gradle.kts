@@ -25,3 +25,7 @@ java {
         languageVersion = JavaLanguageVersion.of(23)
     }
 }
+
+tasks.named<JavaCompile>("compileJava") {
+    dependsOn(tasks.named("compileKotlin"))
+}

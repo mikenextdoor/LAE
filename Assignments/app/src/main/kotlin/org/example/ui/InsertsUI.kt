@@ -4,7 +4,9 @@ import org.example.classes.Interacao
 import org.example.interfaces.*
 import java.sql.Date
 
-class InsertsUI(private val inserts: InsertsInterface) {
+class InsertsUI(
+    private val inserts: InsertsInterface,
+) {
     fun insertInteracao() {
         print("ID Interação: ")
         val id = readln().toInt()
@@ -25,14 +27,15 @@ class InsertsUI(private val inserts: InsertsInterface) {
         val abusivaInput = readln().trim()
         val abusiva = if (abusivaInput.isEmpty()) null else abusivaInput.toBoolean()
 
-        val interaction = Interacao(
-            id = id,
-            data = date,
-            texto = text,
-            cedulaModerador = cedulaModerador,
-            idUtilizador = idUtilizador,
-            abusiva = abusiva
-        )
+        val interaction =
+            Interacao(
+                id = id,
+                data = date,
+                texto = text,
+                cedulaModerador = cedulaModerador,
+                idUtilizador = idUtilizador,
+                abusiva = abusiva,
+            )
 
         inserts.insertInteracao(interaction)
 

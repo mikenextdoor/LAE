@@ -4,7 +4,7 @@ import kotlin.reflect.full.memberProperties
 data class Caso(
     @Column("IDCaso") val id: String,
     @Column("AreaAtuacao") val areaAtuacao: String?,
-    @Column("GrauGravidade") val grauGravidade: Int?
+    @Column("GrauGravidade") val grauGravidade: Int?,
 )
 
 fun main() {

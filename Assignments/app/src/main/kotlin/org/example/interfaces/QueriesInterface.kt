@@ -25,5 +25,8 @@ interface QueriesInterface {
 
     fun getCasosGravidadeSuperiorMedia(): List<Caso>
 
-    fun getPsiIntervencoes(minIntervencoes: Int, minGravidade: Int): List<PsicologoIntervencoes>
+    fun getPsiIntervencoes(
+        minIntervencoes: Int,
+        minGravidade: Int,
+    ): List<PsicologoIntervencoes>
 }

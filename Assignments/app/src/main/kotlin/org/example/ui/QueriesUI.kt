@@ -2,7 +2,9 @@ package org.example.ui
 
 import org.example.interfaces.*
 
-class QueriesUI(private val queries: QueriesInterface) {
+class QueriesUI(
+    private val queries: QueriesInterface,
+) {
     fun getInteracaoByUser() {
         print("User ID: ")
         val id = readln().trim().toInt()

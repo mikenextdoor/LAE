@@ -7,9 +7,10 @@ fun createConnection(): Connection {
     val password = "benf1ca1904"
     val url = "jdbc:postgresql://localhost:5432/CasosCyberBullying"
 
-    val properties = Properties().apply {
-        put("user", "postgres")
-        put("password", password)    // password indicada na instalação do PostgreSQL
-    }
+    val properties =
+        Properties().apply {
+            put("user", "postgres")
+            put("password", password) // password indicada na instalação do PostgreSQL
+        }
     return DriverManager.getConnection(url, properties)
 }

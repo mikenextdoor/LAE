@@ -1,4 +1,5 @@
 package pt.isel
+/*
 
 import org.h2.jdbcx.JdbcDataSource
 import org.openjdk.jmh.annotations.Benchmark
@@ -32,3 +33,4 @@ open class Bench {
     @Benchmark
     fun benchmarkQuery(): List<String> = getChannelsNames(connection)
 }
+*/

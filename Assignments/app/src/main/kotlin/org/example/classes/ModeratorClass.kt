@@ -6,5 +6,5 @@ data class Moderator(
     override val nickName: String,
     val professionalCard: String,
     val specializationArea: String,
-    val seniorLevel: Int
+    val seniorLevel: Int,
 ) : User(id, email, nickName)
