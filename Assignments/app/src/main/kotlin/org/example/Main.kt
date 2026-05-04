@@ -1,4 +1,6 @@
+import org.example.classes.EstatisticaAbuso
 import reflection.Column
+import reflection.buildClassFormatter
 import kotlin.reflect.full.memberProperties
 
 data class Caso(
@@ -12,4 +14,7 @@ fun main() {
 
     println(clazz.members)
     println(clazz.memberProperties)
+
+
+    val formatter = buildClassFormatter(EstatisticaAbuso::class)
 }

@@ -21,26 +21,6 @@ class ChannelsTest {
 
     @Test
     fun `check items from channels table`() {
-        /*val actual = getChannelsNames(connection)
-        val expected =
-            listOf(
-                "General",
-                "Development",
-                "Support",
-                "Gaming Chat",
-                "Esports Discussion",
-            )
-        assertEquals(expected, actual)*/
-        connection.createStatement().execute("""
-        CREATE TABLE IF NOT EXISTS INTERACAO (
-            IDInteracao INT PRIMARY KEY,
-            DataInteracao DATE,
-            Texto VARCHAR(255),
-            CedulaProfissionalM VARCHAR(50),
-            IDUtilizador INT,
-            EAbusiva BOOLEAN
-        )""")
-
         val inserts = InsertsJDBC(connection)
         val queries = QueriesJDBC(connection)
 

@@ -12,6 +12,15 @@ CREATE TABLE IF NOT EXISTS channels
     last_message_timestamp BIGINT
 );
 
+CREATE TABLE IF NOT EXISTS INTERACAO (
+    IDInteracao INT,
+    DataInteracao DATE,
+    Texto VARCHAR(255),
+    CedulaProfissionalM VARCHAR(50),
+    IDUtilizador INT,
+    EAbusiva BOOLEAN
+);
+
 -- Seed data for benchmarking
 INSERT INTO channels (name, type, created_at, is_archived, max_message_length, max_members, is_read_only, last_message_timestamp)
 VALUES ('General',            'PUBLIC',  1707720000, FALSE, 500,  100, FALSE, 1707722600),

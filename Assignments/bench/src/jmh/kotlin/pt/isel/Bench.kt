@@ -1,36 +1,38 @@
 package pt.isel
-/*
 
+import org.example.reflection.QueriesReflection
+import org.example.jdbc.QueriesJDBC
 import org.h2.jdbcx.JdbcDataSource
-import org.openjdk.jmh.annotations.Benchmark
-import org.openjdk.jmh.annotations.BenchmarkMode
-import org.openjdk.jmh.annotations.Mode
-import org.openjdk.jmh.annotations.OutputTimeUnit
-import org.openjdk.jmh.annotations.Scope
-import org.openjdk.jmh.annotations.Setup
-import org.openjdk.jmh.annotations.State
+import org.openjdk.jmh.annotations.*
 import java.sql.Connection
 import java.util.concurrent.TimeUnit
 
-@BenchmarkMode(Mode.AverageTime) // Measure execution time per operation
+@BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Benchmark)
 open class Bench {
-    private lateinit var connection: Connection
 
-    @Setup
-    fun setup() {
-        // Create an H2 in-memory DataSource and initialise the schema + seed data
-        val dataSource =
-            JdbcDataSource().apply {
-                setURL("jdbc:h2:mem:benchdb;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:h2-init.sql'")
-                user = "sa"
-                password = ""
-            }
-        connection = dataSource.connection
+    private val connection: Connection =
+        JdbcDataSource().apply {
+            setURL("jdbc:h2:mem:bench;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:h2-init.sql'")
+        }.connection
+
+    private val jdbc = QueriesJDBC(connection)
+    private val reflect = QueriesReflection(connection)
+
+    init {
+        connection.createStatement().execute("""
+            INSERT INTO INTERACAO VALUES
+            (1, DATE '2026-05-04', 'A', NULL, 1, TRUE),
+            (2, DATE '2026-05-04', 'B', NULL, 1, FALSE)
+        """.trimIndent())
     }
 
     @Benchmark
-    fun benchmarkQuery(): List<String> = getChannelsNames(connection)
+    fun queryJDBC() =
+        jdbc.getInteracoesByUser(1)
+
+    @Benchmark
+    fun queryReflection() =
+        reflect.getInteracoesByUser(1)
 }
-*/

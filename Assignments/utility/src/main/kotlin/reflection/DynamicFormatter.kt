@@ -1,5 +1,7 @@
 
+
 package reflection
+
 
 
 
@@ -9,6 +11,7 @@ import java.lang.classfile.ClassFile.*
 import java.lang.classfile.Interfaces
 import java.lang.classfile.Label
 import java.lang.constant.ClassDesc
+import java.lang.constant.ConstantDesc
 import java.lang.constant.ConstantDescs.*
 import java.lang.constant.MethodTypeDesc
 import kotlin.reflect.KClass
@@ -22,16 +25,14 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaGetter
 
+
 fun <T: Any> buildClassFormatter(entityClass: KClass<T>) : AbstractClassFormatter<T> {
     val className = "EstatisticaAbusoBaseLine"
-    val abstractFormatter = "AbstractClassFormatter"
-    val jvmMappingDesc = ClassDesc.of("kotlin.jvm.JvmClassMappingKt")
-    val kClassDesc = ClassDesc.of("kotlin.reflect.KClass")
 
     val bytes: ByteArray =
-        ClassFile.of().build(ClassDesc.of(className)) { clb ->
+        ClassFile.of().build(ClassDesc.of("EstatisticaAbusoBaseLine")) { clb ->
             clb
-                .withSuperclass(ClassDesc.of(abstractFormatter))
+                .withSuperclass(ClassDesc.of("reflection.AbstractClassFormatter"))
 //                public EstatisticaAbusoBaseLine();
 //                    Code:
 //                        0: aload_0
@@ -44,12 +45,12 @@ fun <T: Any> buildClassFormatter(entityClass: KClass<T>) : AbstractClassFormatte
                         cob
                             .aload(0)
                             .ldc(ClassDesc.of(entityClass.qualifiedName))
-                            .invokestatic(
-                                jvmMappingDesc,
-                                "getKotlinClass",
-                                MethodTypeDesc.of(kClassDesc, ClassDesc.of("java.lang.Class"))
+                            .invokestatic(ClassDesc.of("kotlin.jvm.JvmClassMappingKt"), "getKotlinClass",
+                                MethodTypeDesc.of(ClassDesc.of("kotlin.reflect.KClass"), ClassDesc.of("java.lang.Class"))
                             )
-                            .invokespecial(ClassDesc.of(abstractFormatter), INIT_NAME, MTD_void)
+                            .invokespecial(ClassDesc.of("reflection.AbstractClassFormatter"), INIT_NAME,
+                                MethodTypeDesc.of(CD_void, ClassDesc.of("kotlin.reflect.KClass"))
+                            )
                             .return_()
                     }
                 }
@@ -77,42 +78,35 @@ fun <T: Any> buildClassFormatter(entityClass: KClass<T>) : AbstractClassFormatte
 //                        47: goto          8
 //                        50: aload_2
 //                        51: areturn
-                .withMethod("mapFrom", mapFromDesc, ACC_PUBLIC) { mb ->
+                .withMethod("toClassFormatter", MethodTypeDesc.of(ClassDesc.of("java.util.List"), ClassDesc.of("java.sql.ResultSet")), ACC_PUBLIC) { mb ->
                     mb.withCode { cob ->
+                        val loopEnd = cob.newLabel()
+                        val loopStart = cob.newLabel()
+
                         cob
-                            .new_(ClassDesc.of(dest.qualifiedName))
+                            .new_(ClassDesc.of("java.util.ArrayList"))
                             .dup()
-                        params.forEach { (srcProp, _) ->
-                            cob
-                                .aload(1)
-                                .invokevirtual(
-                                    ClassDesc.of(src.qualifiedName),
-                                    srcProp.javaGetter?.name,
-                                    MethodTypeDesc.of(srcProp.returnType.descriptor()),
-                                )
-                        }
-                        cob.invokespecial(
-                            dest.descriptor(),
-                            INIT_NAME,
-                            MethodTypeDesc.of(CD_void, params.map { (_, destParam) -> destParam.type.descriptor() }),
-                        )
-                        cob.areturn()
-                    }
-                }
-                //   public java.lang.Object mapFrom(java.lang.Object);
-                //    Code:
-                //         0: aload_0
-                //         1: aload_1
-                //         2: checkcast     #10                 // class pt/isel/PersonDto
-                //         5: invokevirtual #25                 // Method mapFrom:(Lpt/isel/PersonDto;)Lpt/isel/Person;
-                //         8: areturn
-                .withMethod("mapFrom", MethodTypeDesc.of(CD_Object, CD_Object), ACC_PUBLIC) { mb ->
-                    mb.withCode { cob ->
-                        cob
-                            .aload(0)
+                            .invokespecial(ClassDesc.of("java.util.ArrayList"), INIT_NAME, MTD_void)
+                            .astore(2)
+                            .labelBinding(loopStart)
                             .aload(1)
-                            .checkcast(src.descriptor())
-                            .invokevirtual(ClassDesc.of(className), "mapFrom", mapFromDesc)
+                            .invokeinterface(ClassDesc.of("java.sql.ResultSet"), "next", MethodTypeDesc.of(CD_boolean))
+                            .ifeq(loopEnd)
+                            .aload(2)
+                            .new_(ClassDesc.of("org.example.classes.EstatisticaAbuso"))
+                            .dup()
+                            .aload(1)
+                            .ldc("EAbusiva" as ConstantDesc)
+                            .invokeinterface(ClassDesc.of("java.sql.ResultSet"), "getBoolean", MethodTypeDesc.of(CD_boolean, ClassDesc.of("java.lang.String")))
+                            .aload(1)
+                            .ldc("Total" as ConstantDesc)
+                            .invokeinterface(ClassDesc.of("java.sql.ResultSet"), "getInt", MethodTypeDesc.of(CD_int, ClassDesc.of("java.lang.String")))
+                            .invokespecial(ClassDesc.of("org.example.classes.EstatisticaAbuso"), INIT_NAME, MethodTypeDesc.of(CD_void, CD_boolean, CD_int))
+                            .invokeinterface(ClassDesc.of("java.util.List"), "add", MethodTypeDesc.of(CD_boolean, CD_Object))
+                            .pop()
+                            .goto_(loopStart)
+                            .labelBinding(loopEnd)
+                            .aload(2)
                             .areturn()
                     }
                 }
@@ -129,6 +123,57 @@ fun <T: Any> buildClassFormatter(entityClass: KClass<T>) : AbstractClassFormatte
         .loadClass(className)
         .kotlin
 
-    return  clazzKlass
+    return  clazzKlass.createInstance() as AbstractClassFormatter<T>
 }
 
+/*
+
+fun KClass<*>.descriptor(): ClassDesc =
+    if (this.java.isPrimitive) {
+        val kClass = Char::class
+        val desc =
+            when (this) {
+                kClass -> {
+                    CD_char
+                }
+
+                Short::class -> {
+                    CD_short
+                }
+
+                Int::class -> {
+                    CD_int
+                }
+
+                Long::class -> {
+                    CD_long
+                }
+
+                Float::class -> {
+                    CD_float
+                }
+
+                Double::class -> {
+                    CD_double
+                }
+
+                Boolean::class -> {
+                    CD_boolean
+                }
+
+                else -> {
+                    throw IllegalStateException("No primitive type for ${this.qualifiedName}!")
+                }
+            }
+        desc
+    } else {
+        ClassDesc.of(this.java.name)
+    }
+
+fun KType.descriptor(): ClassDesc {
+    val klass = this.classifier as KClass<*>
+    return klass.descriptor()
+}
+
+
+*/
