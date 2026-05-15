@@ -173,7 +173,6 @@ fun <T : Any?> Sequence<T>.lazyCollapse(): Sequence<T> {
                     if (nextReady) return true
                     while (upstream.hasNext()) {
                         val item = upstream.next()
-                        println("item=$item, prevItem=$prevItem, condition=${prevItem === NONE || item != prevItem}")
                         if (prevItem === NONE || item != prevItem) {
                             nextItem = item
                             nextReady = true
@@ -187,7 +186,6 @@ fun <T : Any?> Sequence<T>.lazyCollapse(): Sequence<T> {
                 override fun next(): T {
                     if (!nextReady && !hasNext()) throw NoSuchElementException()
                     nextReady = false
-                    println("delivering: $nextItem")
                     return nextItem as T
                 }
 
@@ -205,5 +203,24 @@ fun <T, R, V> Sequence<T>.lazyZip(
     other: Sequence<R>,
     transform: (a: T, b: R) -> V,
 ): Sequence<V> {
-    TODO()
+    return object : Sequence<V> {
+        override fun iterator(): Iterator<V> {
+            val upstream = this@lazyZip.iterator()
+            val other = other.iterator()
+            return object : Iterator<V> {
+                override fun hasNext(): Boolean {
+                    return upstream.hasNext() && other.hasNext()
+                }
+
+                /**
+                 * Returns the next element in the iteration.
+                 *
+                 * @throws NoSuchElementException if the iteration has no next element.
+                 */
+                override fun next(): V {
+                    return transform(upstream.next(), other.next())
+                }
+            }
+        }
+    }
 }

@@ -6,7 +6,16 @@ fun main() {
     nrs.next()
     nrs.next()
     nrs.next()
-    nrs.next()
+    //nrs.next()
+
+    /*println()
+
+    val nrs4 = foo(false).iterator()
+    println("We have got the iterator and nothing happens")
+    nrs4.next()
+    nrs4.next()
+    nrs4.next()
+    nrs4.next()*/
 
 }
 

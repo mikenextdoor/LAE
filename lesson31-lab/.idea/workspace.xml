@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a30c9be3-4566-492e-965a-8b59be552be6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Assignments/app/src/main/java/EstatisticaAbusoBaseLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignments/app/src/main/java/EstatisticaAbusoBaseLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignments/app/src/main/kotlin/org/example/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignments/app/src/main/kotlin/org/example/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignments/bench/src/jmh/kotlin/pt/isel/Bench.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignments/bench/src/jmh/kotlin/pt/isel/Bench.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignments/utility/src/main/kotlin/reflection/AbstractClassFormatter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignments/utility/src/main/kotlin/reflection/AbstractClassFormatter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignments/utility/src/main/kotlin/reflection/DynamicFormatter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignments/utility/src/main/kotlin/reflection/DynamicFormatter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GitHub/quest-g41d-11" beforeDir="false" afterPath="$PROJECT_DIR$/../GitHub/quest-g41d-11" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/kotlin/pt/isel/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/kotlin/pt/isel/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/kotlin/pt/isel/Queries.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/kotlin/pt/isel/Queries.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,10 +66,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build lesson31-lab.executor": "Run",
     "Gradle.LoggerTest.executor": "Run",
     "Gradle.TestQueries.executor": "Run",
     "Gradle.TestQueries.lazyCollapse removes consecutive duplicates.executor": "Run",
     "Gradle.TestQueries.lazyConcat with two sequences.executor": "Run",
+    "Gradle.TestQueries.lazyZip stops when first sequence is longer.executor": "Run",
+    "Gradle.TestQueries.lazyZip stops when second sequence is longer.executor": "Run",
     "Gradle.TestWeatherTemperatures.check data.executor": "Run",
     "Gradle.TestWeatherTemperatures.count distinct descriptions in rainy days filter map Custom Lazy.executor": "Run",
     "Gradle.TestWeatherTemperatures.count distinct descriptions in rainy days filter map.executor": "Run",
@@ -81,11 +82,12 @@
     "Gradle.TestWeatherTemperatures.first description in windy days Lazy Custom.executor": "Run",
     "Gradle.TestWeatherTemperatures.first description in windy days Lazy.executor": "Run",
     "Gradle.TestWeatherTemperatures.first description in windy days.executor": "Run",
+    "Kotlin.AppKt.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/migue/Documents/Pessoal/ISEL/4_Semestre/LAE/Assignments",
+    "last_opened_file_path": "C:/Users/migue/Documents/Pessoal/ISEL/4_Semestre/LAE/lesson31-lab",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -94,7 +96,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.TestQueries.lazyCollapse removes consecutive duplicates">
+  <component name="RunManager" selected="Kotlin.AppKt">
     <configuration name="TestQueries.lazyCollapse removes consecutive duplicates" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -143,7 +145,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TestWeatherTemperatures.count distinct descriptions in rainy days filter map Custom Lazy" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TestQueries.lazyZip stops when first sequence is longer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -156,7 +158,7 @@
           <list>
             <option value=":app:test" />
             <option value="--tests" />
-            <option value="&quot;pt.isel.TestWeatherTemperatures.count distinct descriptions in rainy days filter map Custom Lazy&quot;" />
+            <option value="&quot;pt.isel.TestQueries.lazyZip stops when first sequence is longer&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -167,7 +169,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TestWeatherTemperatures.first description in windy days Lazy Custom" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TestQueries.lazyZip stops when second sequence is longer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -180,7 +182,7 @@
           <list>
             <option value=":app:test" />
             <option value="--tests" />
-            <option value="&quot;pt.isel.TestWeatherTemperatures.first description in windy days Lazy Custom&quot;" />
+            <option value="&quot;pt.isel.TestQueries.lazyZip stops when second sequence is longer&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -191,37 +193,20 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TestWeatherTemperatures.first description in windy days" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":app:test" />
-            <option value="--tests" />
-            <option value="&quot;pt.isel.TestWeatherTemperatures.first description in windy days&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
+    <configuration name="AppKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pt.isel.AppKt" />
+      <module name="lesson31-lab.app.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.AppKt" />
+        <item itemvalue="Gradle.TestQueries.lazyZip stops when first sequence is longer" />
+        <item itemvalue="Gradle.TestQueries.lazyZip stops when second sequence is longer" />
         <item itemvalue="Gradle.TestQueries.lazyCollapse removes consecutive duplicates" />
         <item itemvalue="Gradle.TestQueries.lazyConcat with two sequences" />
-        <item itemvalue="Gradle.TestWeatherTemperatures.count distinct descriptions in rainy days filter map Custom Lazy" />
-        <item itemvalue="Gradle.TestWeatherTemperatures.first description in windy days Lazy Custom" />
-        <item itemvalue="Gradle.TestWeatherTemperatures.first description in windy days" />
       </list>
     </recent_temporary>
   </component>
@@ -245,6 +230,7 @@
       <workItem from="1778699242783" duration="4305000" />
       <workItem from="1778759058274" duration="3962000" />
       <workItem from="1778845362881" duration="33000" />
+      <workItem from="1778882053303" duration="621000" />
     </task>
     <servers />
   </component>
