@@ -21,4 +21,5 @@ public class EstatisticaAbusoBaseLine extends AbstractClassFormatter<Estatistica
 
         return lista;
     }
+
 }
