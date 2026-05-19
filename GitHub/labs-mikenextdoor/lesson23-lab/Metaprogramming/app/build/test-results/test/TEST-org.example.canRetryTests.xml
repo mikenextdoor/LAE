@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.canRetryTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-04-29T20:31:34.809Z" hostname="MIGUEL" time="0.37">
+  <properties/>
+  <testcase name="metaprogrammingTest()" classname="org.example.canRetryTests" time="0.359"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
