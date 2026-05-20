@@ -20,4 +20,3 @@
 ## Análise e Conclusão
 
 Os resultados mostram que a implementação baseada em Dynamic Reflection já esta mais rapida que a implementação ad hoc em JDBC, e com um overhead menor que na versao de Reflcetion.
-

@@ -2,10 +2,8 @@ package org.example.jdbc
 
 import org.example.classes.*
 import org.example.interfaces.QueriesInterface
-import java.lang.Thread.yield
 import java.sql.Connection
 import java.sql.Date
-import kotlin.sequences.Sequence
 
 class QueriesJDBC(
     private val connection: Connection,
@@ -32,7 +30,7 @@ class QueriesJDBC(
                         texto = rs.getString("Texto"),
                         cedulaModerador = rs.getString("CedulaProfissionalM"),
                         idUtilizador = rs.getInt("IDUtilizador"),
-                        abusiva = rs.getObject("EAbusiva") as Boolean,
+                        abusiva = rs.getObject("EAbusiva") as Boolean?,
                     ),
                 )
             }
@@ -58,7 +56,7 @@ class QueriesJDBC(
                     Caso(
                         id = rs.getString("IDCaso"),
                         areaAtuacao = rs.getString("AreaAtuacao"),
-                        grauGravidade = rs.getObject("GrauGravidade") as Int,
+                        grauGravidade = rs.getObject("GrauGravidade") as Int?,
                     ),
                 )
             }
@@ -84,7 +82,7 @@ class QueriesJDBC(
                     InteracaoResumo(
                         id = rs.getInt("IDInteracao"),
                         nickName = rs.getString("NickName"),
-                        abusiva = rs.getObject("EAbusiva") as Boolean,
+                        abusiva = rs.getObject("EAbusiva") as Boolean?,
                     ),
                 )
             }
@@ -136,13 +134,13 @@ class QueriesJDBC(
                 result =
                     CasoDetalhado(
                         id = rs.getString("IDCaso"),
-                        dataAbertura = rs.getObject("DataAbertura") as Date,
-                        dataFecho = rs.getObject("DataFecho") as Date,
+                        dataAbertura = rs.getObject("DataAbertura") as Date?,
+                        dataFecho = rs.getObject("DataFecho") as Date?,
                         descricao = rs.getString("Descricao"),
                         areaAtuacao = rs.getString("AreaAtuacao"),
                         anotacoes = rs.getString("Anotacoes"),
-                        grauGravidade = rs.getObject("GrauGravidade") as Int,
-                        dataAvaliacao = rs.getObject("DataAvaliacao") as Date,
+                        grauGravidade = rs.getObject("GrauGravidade") as Int?,
+                        dataAvaliacao = rs.getObject("DataAvaliacao") as Date?,
                         textoAD = rs.getString("TextoAD"),
                         psicologoId = rs.getString("CedulaProfissionalP"),
                     )
@@ -150,32 +148,6 @@ class QueriesJDBC(
         }
 
         return result
-    }
-
-    fun findNumeroInteracoesAbusivas(): Sequence<EstatisticaAbuso> {
-
-        val sql =
-            """
-            SELECT EAbusiva, COUNT(*) AS Total 
-            FROM INTERACAO
-            WHERE EAbusiva IS NOT NULL
-            GROUP BY EAbusiva
-            """.trimIndent()
-
-        return sequence {
-            connection.prepareStatement(sql).use { ps ->
-                val rs = ps.executeQuery()
-
-                while (rs.next()) {
-                    yield(
-                        EstatisticaAbuso(
-                            abusiva = rs.getObject("EAbusiva") as Boolean,
-                            total = rs.getLong("Total")
-                        )
-                    )
-                }
-            }
-        }
     }
 
     override fun getNumeroInteracoesAbusivas(): List<EstatisticaAbuso> {
@@ -196,7 +168,7 @@ class QueriesJDBC(
                 resultList.add(
                     EstatisticaAbuso(
                         abusiva = rs.getObject("EAbusiva") as Boolean,
-                        total = rs.getLong("Total"),
+                        total = rs.getInt("Total"),
                     ),
                 )
             }
@@ -224,7 +196,7 @@ class QueriesJDBC(
                     CasosPorInteracao(
                         interacaoId = rs.getInt("IDInteracao"),
                         numCasos = rs.getInt("NumCasos"),
-                        mediaGravidade = rs.getObject("MediaGravidade") as Double,
+                        mediaGravidade = rs.getObject("MediaGravidade") as Double?,
                     ),
                 )
             }
@@ -259,8 +231,8 @@ class QueriesJDBC(
                         psicologoId = rs.getString("CedulaProfissionalP"),
                         numCasos = rs.getInt("NumCasos"),
                         casosAvaliados = rs.getInt("CasosAvaliados"),
-                        mediaGravidade = rs.getObject("MediaGravidade") as Double,
-                        maxGravidade = rs.getObject("MaxGravidade") as Int,
+                        mediaGravidade = rs.getObject("MediaGravidade") as Double?,
+                        maxGravidade = rs.getObject("MaxGravidade") as Int?,
                     ),
                 )
             }
@@ -297,7 +269,7 @@ class QueriesJDBC(
                         casosIniciados = rs.getInt("CasosIniciados"),
                         casosAvaliados = rs.getInt("CasosAvaliados"),
                         casosFechados = rs.getInt("CasosFechados"),
-                        mediaGravidade = rs.getObject("MediaGravidade") as Double,
+                        mediaGravidade = rs.getObject("MediaGravidade") as Double?,
                     ),
                 )
             }
@@ -349,8 +321,8 @@ class QueriesJDBC(
                 resultList.add(
                     Caso(
                         id = rs.getString("IDCaso"),
-                        areaAtuacao = "null",
-                        grauGravidade = rs.getObject("GrauGravidade") as Int,
+                        areaAtuacao = null,
+                        grauGravidade = rs.getObject("GrauGravidade") as Int?,
                     ),
                 )
             }

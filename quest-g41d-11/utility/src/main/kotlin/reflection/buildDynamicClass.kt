@@ -12,7 +12,6 @@ import java.lang.constant.ClassDesc
 import java.lang.constant.ConstantDesc
 import java.lang.constant.ConstantDescs.*
 import java.lang.constant.MethodTypeDesc
-import java.net.URLClassLoader
 import kotlin.jvm.Throws
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
@@ -107,23 +106,20 @@ fun <T: Any> buildDynamicClass(entityClass: KClass<T>) : AbstractClassFormatter<
                     }
                 }
         }
-    File(root, className.replace('.', '/') + ".class")
+    val resourcePath =
+        Unit::class.java
+            .getResource("/")
+            ?.toURI()
+            ?.path
+    File(resourcePath, className.replace('.', '/') + ".class")
         .also { it.parentFile?.mkdirs() } // Create directories if they do not exist
         .writeBytes(bytes)
-    var clazzKlass = loader
+    var clazzKlass = Unit::class.java.classLoader
         .loadClass(className)
         .kotlin
 
     return  clazzKlass.createInstance() as AbstractClassFormatter<T>
 }
-
-private val root =
-    Unit::class.java
-        .getResource("/")
-        ?.toURI()
-        ?.path
-        ?: "${System.getProperty("user.dir")}/"
-private val loader = URLClassLoader(arrayOf(File(root).toURI().toURL()))
 
 
 fun KClass<*>.descriptor(): ClassDesc =

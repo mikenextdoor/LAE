@@ -15,17 +15,17 @@ class InsertsUI(
         val date = Date.valueOf(readln())
 
         print("Texto: ")
-        val text = readln().trim().ifEmpty { "null" }
+        val text = readln().trim().ifEmpty { null }
 
         print("Cédula de Moderador: ")
-        val cedulaModerador = readln().trim().ifEmpty { "null" }
+        val cedulaModerador = readln().trim().ifEmpty { null }
 
         print("ID Utilizador: ")
         val idUtilizador = readln().trim().toInt()
 
         print("Abusiva? (true/false): ")
         val abusivaInput = readln().trim()
-        val abusiva = if (abusivaInput.isEmpty()) false else abusivaInput.toBoolean()
+        val abusiva = if (abusivaInput.isEmpty()) null else abusivaInput.toBoolean()
 
         val interaction =
             Interacao(

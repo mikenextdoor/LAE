@@ -29,7 +29,7 @@ class ChannelsTest {
                 id = 1,
                 data = java.sql.Date.valueOf("2026-04-11"),
                 texto = "Test",
-                cedulaModerador = "null",
+                cedulaModerador = null,
                 idUtilizador = 1,
                 abusiva = true
             )
