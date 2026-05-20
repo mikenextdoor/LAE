@@ -121,7 +121,7 @@ class DynamicTest {
 
         assertEquals(3, result.size)
         assertEquals(false, result[0].abusiva)
-        assertEquals(5, result[0].total)
+        assertEquals(5L, result[0].total)
         assertEquals(true, result[1].abusiva)
         assertEquals(1, result[1].total)
         assertEquals(true, result[2].abusiva)

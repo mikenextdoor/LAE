@@ -44,7 +44,7 @@ data class CasoDetalhado(
 
 data class EstatisticaAbuso(
     @Column("EAbusiva") val abusiva: Boolean,
-    @Column("Total") val total: Int,
+    @Column("Total") val total: Long,
 )
 
 data class CasosPorInteracao(

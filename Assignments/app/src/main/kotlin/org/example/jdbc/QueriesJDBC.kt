@@ -168,7 +168,7 @@ class QueriesJDBC(
                 resultList.add(
                     EstatisticaAbuso(
                         abusiva = rs.getObject("EAbusiva") as Boolean,
-                        total = rs.getInt("Total"),
+                        total = rs.getLong("Total"),
                     ),
                 )
             }

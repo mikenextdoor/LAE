@@ -23,25 +23,14 @@ open class Bench {
     private val dynamic = QueriesReflectionDynamic(connection)
 
     init {
-        /*connection.createStatement().execute("""
-            INSERT INTO INTERACAO VALUES
-            (1, DATE '2026-05-04', 'A', NULL, 1, TRUE),
-            (2, DATE '2026-05-04', 'B', NULL, 1, FALSE)
-        """.trimIndent())*/ //trocar para InteracaoAbuso
-
         connection.createStatement().execute("""
-            INSERT INTO ESTATISTICA_ABUSO VALUES
-            (TRUE, 1),
-            (TRUE, 2),
-            (TRUE, 3),
-            (TRUE, 4),
-            (TRUE, 5),
-            (FALSE, 1),
-            (FALSE, 2),
-            (FALSE, 3),
-            (FALSE, 4),
-            (FALSE, 5)
-        """.trimIndent())
+        INSERT INTO INTERACAO VALUES
+        (1, DATE '2026-05-20', 'A', NULL, 1, TRUE),
+        (2, DATE '2026-05-20', 'B', NULL, 1, FALSE),
+        (3, DATE '2026-05-20', 'C', NULL, 1, TRUE),
+        (4, DATE '2026-05-20', 'D', NULL, 1, FALSE),
+        (5, DATE '2026-05-20', 'E', NULL, 1, TRUE)
+    """.trimIndent())
     }
 
     @Benchmark
