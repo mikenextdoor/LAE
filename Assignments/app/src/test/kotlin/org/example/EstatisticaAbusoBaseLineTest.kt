@@ -27,7 +27,7 @@ class EstatisticaAbusoBaseLineTest {
         }
     }
 
-    /*@Test
+    @Test
     fun `test EstatisticaAbusoBaseLine toClassFormatter`() {
         val rs = connection.createStatement()
             .executeQuery("SELECT EAbusiva, Total FROM ESTATISTICA_ABUSO")
@@ -40,9 +40,9 @@ class EstatisticaAbusoBaseLineTest {
         assertEquals(5, result[0].total)
         assertEquals(false, result[1].abusiva)
         assertEquals(3, result[1].total)
-    }*/
+    }
 
-    /*@Test
+    @Test
     fun `teste do  buildClassFormatter`() {
         val formatter  =  buildDynamicClass(EstatisticaAbuso::class)
         val rs = connection.createStatement()
@@ -56,5 +56,5 @@ class EstatisticaAbusoBaseLineTest {
         assertEquals(false, result[1].abusiva)
         assertEquals(3, result[1].total)
 
-    }*/
+    }
 }
