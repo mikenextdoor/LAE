@@ -24,14 +24,13 @@ class QueriesReflectionDynamic(
      * por enquanto os testes do Bench e do DynamicTest apenas estão a usar o estatisticaAbusoFormatter.
      */
 
-    override fun getInteracoesByUser(userId: Int): List<Interacao> {
-        val sql =
-            """
+    val getInteracoesByUserSQL = """
             SELECT IDInteracao, DataInteracao, Texto, CedulaProfissionalM, IDUtilizador, EAbusiva
             FROM INTERACAO
             WHERE IDUtilizador = ?
             """.trimIndent()
-
+    override fun getInteracoesByUser(userId: Int): List<Interacao> {
+        val sql =getInteracoesByUserSQL
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, userId)
             val rs = ps.executeQuery()
@@ -39,13 +38,12 @@ class QueriesReflectionDynamic(
         }
     }
 
-    override fun getCasosByInteracao(interacaoId: Int): List<Caso> {
-        val sql =
-            """
+    val getCasosByInteracaoSQL = """
             SELECT IDCaso, AreaAtuacao, GrauGravidade FROM CASOS_DE_CYBERBULLYING
             WHERE IDInteracao = ?
             """.trimIndent()
-
+    override fun getCasosByInteracao(interacaoId: Int): List<Caso> {
+        val sql = getCasosByInteracaoSQL
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, interacaoId)
             val rs = ps.executeQuery()
@@ -53,28 +51,26 @@ class QueriesReflectionDynamic(
         }
     }
 
-    override fun getTodasInteracoes(): List<InteracaoResumo> {
-        val sql =
-            """
+    val getTodasInteracoesSQL = """
             SELECT I.IDInteracao, U.NickName, I.EAbusiva FROM INTERACAO I
             JOIN UTILIZADOR U ON I.IDUtilizador = U.IDUtilizador
             ORDER BY I.EAbusiva IS NOT NULL
             """.trimIndent()
-
+    override fun getTodasInteracoes(): List<InteracaoResumo> {
+        val sql = getTodasInteracoesSQL
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
             return interacaoResumoFormatter.toClassFormatter(rs)
         }
     }
 
-    override fun getInteracoesCasosByUser(userId: Int): List<InteracaoCaso> {
-        val sql =
-            """
+    val getInteracoesCasosByUserSQL ="""
             SELECT I.IDInteracao, CB.IDCaso FROM INTERACAO I
             LEFT JOIN CASOS_DE_CYBERBULLYING CB ON I.IDInteracao = CB.IDInteracao
             WHERE I.IDUtilizador = ?
             """.trimIndent()
-
+    override fun getInteracoesCasosByUser(userId: Int): List<InteracaoCaso> {
+        val sql = getInteracoesCasosByUserSQL
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, userId)
             val rs = ps.executeQuery()
@@ -82,13 +78,12 @@ class QueriesReflectionDynamic(
         }
     }
 
-    override fun getCasoById(id: Int): CasoDetalhado? {
-        val sql =
-            """
+    val getCasoByIdSQL = """
             SELECT * FROM CASOS_DE_CYBERBULLYING
             WHERE IDCaso = ?
             """.trimIndent()
-
+    override fun getCasoById(id: Int): CasoDetalhado? {
+        val sql = getCasoByIdSQL
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, id)
             val rs = ps.executeQuery()
@@ -97,39 +92,35 @@ class QueriesReflectionDynamic(
         }
     }
 
-    override fun getNumeroInteracoesAbusivas(): List<EstatisticaAbuso> {
-        val sql =
-            """
+    val getNumeroInteracoesAbusivasSQL = """
             SELECT EAbusiva, COUNT(*) AS Total 
             FROM INTERACAO
             WHERE EAbusiva IS NOT NULL
             GROUP BY EAbusiva
             """.trimIndent()
-
+    override fun getNumeroInteracoesAbusivas(): List<EstatisticaAbuso> {
+        val sql = getNumeroInteracoesAbusivasSQL
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
             return estatisticaAbusoFormatter.toClassFormatter(rs)
         }
     }
 
-    override fun getCasosPorInteracao(): List<CasosPorInteracao> {
-        val sql =
-            """
+    val getCasosPorInteracaoSQL = """
             SELECT IDInteracao, COUNT(*) AS NumCasos, AVG(GrauGravidade) AS MediaGravidade 
             FROM CASOS_DE_CYBERBULLYING
             GROUP BY IDInteracao
             ORDER BY IDInteracao
             """.trimIndent()
-
+    override fun getCasosPorInteracao(): List<CasosPorInteracao> {
+        val sql = getCasosPorInteracaoSQL
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
             return casosPorInteracaoFormatter.toClassFormatter(rs)
         }
     }
 
-    override fun getEstatisticasPsicologos(): List<EstatisticaPsicologo> {
-        val sql =
-            """
+    val getEstatisticasPsicologos = """
             SELECT P.CedulaProfissionalP, COUNT(CB.IDCaso) AS NumCasos, 
             SUM(CASE WHEN E.Estado IN ('Avaliado', 'Fechado') THEN 1 ELSE 0 END) AS CasosAvaliados,
             AVG(CB.GrauGravidade) AS MediaGravidade, 
@@ -141,16 +132,15 @@ class QueriesReflectionDynamic(
             GROUP BY P.CedulaProfissionalP
             ORDER BY P.CedulaProfissionalP
             """.trimIndent()
-
+    override fun getEstatisticasPsicologos(): List<EstatisticaPsicologo> {
+        val sql = getEstatisticasPsicologos
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
             return estatisticaPsicologoFormatter.toClassFormatter(rs)
         }
     }
 
-    override fun getEstatisticasPorArea(): List<EstatisticaArea> {
-        val sql =
-            """
+    val getEstatisticasPorAreaSQL = """
             SELECT CB.AreaAtuacao, COUNT(DISTINCT P.CedulaProfissionalP) AS NumPsicologos,
             SUM(CASE WHEN E.Estado = 'Iniciado' THEN 1 ELSE 0 END) AS CasosIniciados,
             SUM(CASE WHEN E.Estado = 'Avaliado' THEN 1 ELSE 0 END) AS CasosAvaliados,
@@ -162,22 +152,22 @@ class QueriesReflectionDynamic(
             GROUP BY CB.AreaAtuacao
             ORDER BY CB.AreaAtuacao
             """.trimIndent()
-
+    override fun getEstatisticasPorArea(): List<EstatisticaArea> {
+        val sql = getEstatisticasPorAreaSQL
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
             return estatisticaAreaFormatter.toClassFormatter(rs)
         }
     }
 
-    override fun getUtilizadoresComTodosRecursos(): List<Int> {
-        val sql =
-            """
+    val getUtilizadoresComTodosRecursos = """
             SELECT C.IDUtilizador 
             FROM CONSULTA C
             GROUP BY C.IDUtilizador
             HAVING COUNT(DISTINCT C.IDRecurso) = (SELECT COUNT(*) FROM RECURSO)
             """.trimIndent()
-
+    override fun getUtilizadoresComTodosRecursos(): List<Int> {
+        val sql = getUtilizadoresComTodosRecursos
         val result = mutableListOf<Int>()
 
         connection.prepareStatement(sql).use { ps ->
@@ -190,9 +180,7 @@ class QueriesReflectionDynamic(
         return result
     }
 
-    override fun getCasosGravidadeSuperiorMedia(): List<Caso> {
-        val sql =
-            """
+    val getCasosGravidadeSuperiorMediaSQL = """
             SELECT IDCaso, NULL AS AreaAtuacao, GrauGravidade 
             FROM CASOS_DE_CYBERBULLYING
             WHERE GrauGravidade > (
@@ -201,19 +189,15 @@ class QueriesReflectionDynamic(
                 WHERE GrauGravidade IS NOT NULL
             )
             """.trimIndent()
-
+    override fun getCasosGravidadeSuperiorMedia(): List<Caso> {
+        val sql = getCasosGravidadeSuperiorMediaSQL
         connection.prepareStatement(sql).use { ps ->
             val rs = ps.executeQuery()
             return casoFormatter.toClassFormatter(rs)
         }
     }
 
-    override fun getPsiIntervencoes(
-        minIntervencoes: Int,
-        minGravidade: Int,
-    ): List<PsicologoIntervencoes> {
-        val sql =
-            """
+    val getPsiIntervencoesSQL = """
             SELECT I.CedulaProfissionalP, COUNT(*) AS TotalIntervencoes 
             FROM INTERVENCAO I
             LEFT JOIN CASOS_DE_CYBERBULLYING CB ON CB.IDCaso = I.IDCaso
@@ -222,7 +206,11 @@ class QueriesReflectionDynamic(
             HAVING COUNT(*) > ?
             ORDER BY I.CedulaProfissionalP
             """.trimIndent()
-
+    override fun getPsiIntervencoes(
+        minIntervencoes: Int,
+        minGravidade: Int,
+    ): List<PsicologoIntervencoes> {
+        val sql = getPsiIntervencoesSQL
         connection.prepareStatement(sql).use { ps ->
             ps.setInt(1, minGravidade)
             ps.setInt(2, minIntervencoes)

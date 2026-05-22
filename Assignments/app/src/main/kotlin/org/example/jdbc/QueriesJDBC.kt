@@ -135,7 +135,7 @@ class QueriesJDBC(
             if (rs.next()) {
                 result =
                     CasoDetalhado(
-                        id = rs.getString("IDCaso"),
+                        id = rs.getInt("IDCaso"),
                         dataAbertura = rs.getObject("DataAbertura") as Date,
                         dataFecho = rs.getObject("DataFecho") as Date,
                         descricao = rs.getString("Descricao"),
@@ -153,7 +153,6 @@ class QueriesJDBC(
     }
 
     fun findNumeroInteracoesAbusivas(): Sequence<EstatisticaAbuso> {
-
         val sql =
             """
             SELECT EAbusiva, COUNT(*) AS Total 

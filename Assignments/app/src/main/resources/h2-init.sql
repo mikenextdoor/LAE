@@ -16,14 +16,14 @@ CREATE TABLE IF NOT EXISTS ESTATISTICA_ABUSO (
 );
 
 CREATE TABLE IF NOT EXISTS CASOS_DE_CYBERBULLYING (
-    IDCaso VARCHAR(50) PRIMARY KEY,
+    IDCaso INT,
     DataAbertura DATE,
     DataFecho DATE,
     Descricao VARCHAR(255),
-    AreaAtuacao VARCHAR(100),
+    AreaAtuacao VARCHAR(255),
     Anotacoes VARCHAR(255),
     GrauGravidade INT,
     DataAvaliacao DATE,
     TextoAD VARCHAR(255),
-    CedulaProfissionalP VARCHAR(50)
+    CedulaProfissionalP VARCHAR(255)
 );

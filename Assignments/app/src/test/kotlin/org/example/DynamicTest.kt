@@ -11,6 +11,7 @@ import org.junit.BeforeClass
 import reflection.Column
 import reflection.buildDynamicClass
 import java.sql.Connection
+import java.sql.Date
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
@@ -50,7 +51,7 @@ class DynamicTest {
             connection.createStatement().execute("""
                 INSERT INTO CASOS_DE_CYBERBULLYING VALUES
                 (
-                    'ID',
+                    99,
                     DATE '2026-05-14',
                     DATE '2026-05-15',
                     'Descricao',
@@ -134,23 +135,30 @@ class DynamicTest {
      * Erro: java.lang.NoSuchMethodError: 'java.lang.Integer java.sql.ResultSet.getInt(java.lang.String)'
      * getInt nao retorna Integer, diz que method nao existe
      * provavelmente temos que fazer unbox
+     *
+     *
+     * FOI CORRIGIDO, REMOVEMOS TODAS AS POSSIBILIDADES DE TER VALORES NULL
+     * O teste ja correu com sucesso
      */
-    /*
     @Test
     fun `getCasoById test`() {
         val formatter = buildDynamicClass(CasoDetalhado::class)
 
-        val rs = connection.createStatement()
-            .executeQuery("""
-            SELECT IDCaso, DataAbertura, DataFecho, Descricao, AreaAtuacao, 
-            Anotacoes, GrauGravidade, DataAvaliacao, TextoAD, CedulaProfissionalP
-            FROM CASOS_DE_CYBERBULLYING
-        """.trimIndent())
+        connection.createStatement().execute("""
+        INSERT INTO CASOS_DE_CYBERBULLYING VALUES
+        (1, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (2, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (1, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (2, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (1, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (2, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA')
+        """.trimIndent()
+        )
 
-        val result = formatter.toClassFormatter(rs)
+        val dynamic = QueriesReflectionDynamic(connection)
 
-        assertEquals(1, result.size)
-        assertEquals("ID", result[0].id)
-        assertEquals(4, result[0].grauGravidade)
-    }*/
+        val cases = dynamic.getCasoById(1)
+
+        assertEquals(CasoDetalhado(1, Date.valueOf("2026-05-19"), Date.valueOf("2026-05-20"), "DESCRIÇÃO", "AREA DE ATUACAO", "ANOTACOES", 1, Date.valueOf("2026-05-20"), "TEXTOAD", "CEDULA"), cases)
+    }
 }

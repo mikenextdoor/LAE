@@ -5,17 +5,17 @@
 - **Framework:** JMH (Java Microbenchmark Harness)
 - **Modo:** Average Time (`avgt`)
 - **Unidade:** Nanosegundos por operação (`ns/op`)
-- **Iterações de warmup:** 4 × 2s
-- **Iterações de medição:** 8 × 2s
+- **Iterações de warmup:** 10 × 2s
+- **Iterações de medição:** 10 × 2s
 - **JVM:** Java 23
 
 ## Resultados
 
 | Benchmark | Modo | Iterações | Score (ns/op) | Erro (±) |
 |---|---|---|---|---|
-| `Bench.queryJDBC` | avgt | 30 | 625,538 | ± 30,159 |
-| `Bench.queryReflection` | avgt | 30 | 610,331 | ± 12,048 |
-| `Bench.queryDynamic` | avgt | 30 | 588,961 | ±  9,856 |
+| `Bench.queryJDBC` | avgt | 20 | 1870,176 | ± 50,862 |
+| `Bench.queryReflection` | avgt | 20 | 2719,859 | ± 19,714 |
+| `Bench.queryDynamic` | avgt | 20 | 2436,292 | ±  24,148 |
 
 ## Análise e Conclusão
 

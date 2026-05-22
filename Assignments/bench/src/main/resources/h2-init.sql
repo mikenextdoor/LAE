@@ -21,6 +21,19 @@ CREATE TABLE IF NOT EXISTS INTERACAO (
     EAbusiva BOOLEAN
 );
 
+CREATE TABLE IF NOT EXISTS CASOS_DE_CYBERBULLYING (
+    IDCaso INT,
+    DataAbertura DATE,
+    DataFecho DATE,
+    Descricao VARCHAR(255),
+    AreaAtuacao VARCHAR(255),
+    Anotacoes VARCHAR(255),
+    GrauGravidade INT,
+    DataAvaliacao DATE,
+    TextoAD VARCHAR(255),
+    CedulaProfissionalP VARCHAR(255)
+);
+
 -- Seed data for benchmarking
 INSERT INTO channels (name, type, created_at, is_archived, max_message_length, max_members, is_read_only, last_message_timestamp)
 VALUES ('General',            'PUBLIC',  1707720000, FALSE, 500,  100, FALSE, 1707722600),

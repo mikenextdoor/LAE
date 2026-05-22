@@ -31,18 +31,29 @@ open class Bench {
         (4, DATE '2026-05-20', 'D', NULL, 1, FALSE),
         (5, DATE '2026-05-20', 'E', NULL, 1, TRUE)
     """.trimIndent())
+
+        connection.createStatement().execute("""
+        INSERT INTO CASOS_DE_CYBERBULLYING VALUES
+        (1, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (2, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (1, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (2, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (1, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA'),
+        (2, DATE '2026-05-19', DATE '2026-05-20', 'DESCRIÇÃO', 'AREA DE ATUACAO', 'ANOTACOES', 1, DATE '2026-05-20', 'TEXTOAD', 'CEDULA')
+        """.trimIndent()
+        )
     }
 
     @Benchmark
     fun queryJDBC() =
-        jdbc.getNumeroInteracoesAbusivas()
+        jdbc.getCasoById(1)
 
     @Benchmark
     fun queryReflection() =
-        reflect.getNumeroInteracoesAbusivas()
+        reflect.getCasoById(1)
 
     @Benchmark
     fun queryDynamic() =
-        dynamic.getNumeroInteracoesAbusivas()
+        dynamic.getCasoById(1)
 
 }

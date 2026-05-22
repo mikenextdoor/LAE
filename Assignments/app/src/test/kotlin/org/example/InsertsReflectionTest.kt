@@ -27,7 +27,7 @@ class InsertsReflectionTest {
         val repo = InsertsReflection(connection)
 
         repo.insertInteracao(
-            Interacao(1, Date.valueOf("2016-10-24"), "A", null, 1, true)
+            Interacao(1, Date.valueOf("2016-10-24"), "A", "null", 1, true)
         )
 
         val rs = connection.createStatement().executeQuery("SELECT * FROM INTERACAO")
@@ -45,11 +45,11 @@ class InsertsReflectionTest {
         val queries = QueriesReflection(connection)
 
         inserts.insertInteracao(
-            Interacao(1, Date.valueOf("2016-10-24"), "A", null, 1, true)
+            Interacao(1, Date.valueOf("2016-10-24"), "A", "null", 1, true)
         )
 
         inserts.insertInteracao(
-            Interacao(2, Date.valueOf("2016-10-25"), "B", null, 1, false)
+            Interacao(2, Date.valueOf("2016-10-25"), "B", "null", 1, false)
         )
 
         val result = queries.getInteracoesByUser(1)

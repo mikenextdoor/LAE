@@ -30,7 +30,7 @@ data class InteracaoCaso(
 )
 
 data class CasoDetalhado(
-    @Column("IDCaso") val id: String,
+    @Column("IDCaso") val id: Int,
     @Column("DataAbertura") val dataAbertura: Date,
     @Column("DataFecho") val dataFecho: Date,
     @Column("Descricao") val descricao: String,
