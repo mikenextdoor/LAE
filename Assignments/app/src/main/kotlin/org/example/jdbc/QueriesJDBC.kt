@@ -10,6 +10,7 @@ import kotlin.sequences.Sequence
 class QueriesJDBC(
     private val connection: Connection,
 ) : QueriesInterface {
+
     override fun getInteracoesByUser(userId: Int): List<Interacao> {
         val resultList = mutableListOf<Interacao>()
 
@@ -41,6 +42,7 @@ class QueriesJDBC(
         return resultList
     }
 
+
     override fun getCasosByInteracao(interacaoId: Int): List<Caso> {
         val resultList = mutableListOf<Caso>()
 
@@ -67,6 +69,7 @@ class QueriesJDBC(
         return resultList
     }
 
+
     override fun getTodasInteracoes(): List<InteracaoResumo> {
         val resultList = mutableListOf<InteracaoResumo>()
 
@@ -92,6 +95,7 @@ class QueriesJDBC(
 
         return resultList
     }
+
 
     override fun getInteracoesCasosByUser(userId: Int): List<InteracaoCaso> {
         val resultList = mutableListOf<InteracaoCaso>()
@@ -152,30 +156,6 @@ class QueriesJDBC(
         return result
     }
 
-    fun findNumeroInteracoesAbusivas(): Sequence<EstatisticaAbuso> {
-        val sql =
-            """
-            SELECT EAbusiva, COUNT(*) AS Total 
-            FROM INTERACAO
-            WHERE EAbusiva IS NOT NULL
-            GROUP BY EAbusiva
-            """.trimIndent()
-
-        return sequence {
-            connection.prepareStatement(sql).use { ps ->
-                val rs = ps.executeQuery()
-
-                while (rs.next()) {
-                    yield(
-                        EstatisticaAbuso(
-                            abusiva = rs.getObject("EAbusiva") as Boolean,
-                            total = rs.getLong("Total")
-                        )
-                    )
-                }
-            }
-        }
-    }
 
     override fun getNumeroInteracoesAbusivas(): List<EstatisticaAbuso> {
         val resultList = mutableListOf<EstatisticaAbuso>()
@@ -204,6 +184,7 @@ class QueriesJDBC(
         return resultList
     }
 
+
     override fun getCasosPorInteracao(): List<CasosPorInteracao> {
         val resultList = mutableListOf<CasosPorInteracao>()
 
@@ -231,6 +212,7 @@ class QueriesJDBC(
 
         return resultList
     }
+
 
     override fun getEstatisticasPsicologos(): List<EstatisticaPsicologo> {
         val resultList = mutableListOf<EstatisticaPsicologo>()
@@ -267,6 +249,7 @@ class QueriesJDBC(
 
         return resultList
     }
+
 
     override fun getEstatisticasPorArea(): List<EstatisticaArea> {
         val resultList = mutableListOf<EstatisticaArea>()
@@ -305,6 +288,29 @@ class QueriesJDBC(
         return resultList
     }
 
+    fun findUtilizadoresComTodosRecursos(): Sequence<Int> {
+        val sql =
+            """
+            SELECT C.IDUtilizador 
+            FROM CONSULTA C
+            GROUP BY C.IDUtilizador
+            HAVING COUNT(DISTINCT C.IDRecurso) = (SELECT COUNT(*) FROM RECURSO)
+            """.trimIndent()
+
+        return sequence {
+            connection.prepareStatement(sql).use { ps ->
+                val rs = ps.executeQuery()
+
+                while (rs.next()) {
+                    yield(
+                        rs.getInt("IDUtilizador"))
+                }
+
+                    }
+                }
+
+            }
+
     override fun getUtilizadoresComTodosRecursos(): List<Int> {
         val resultList = mutableListOf<Int>()
 
@@ -326,6 +332,8 @@ class QueriesJDBC(
 
         return resultList
     }
+
+
 
     override fun getCasosGravidadeSuperiorMedia(): List<Caso> {
         val resultList = mutableListOf<Caso>()
@@ -357,6 +365,8 @@ class QueriesJDBC(
 
         return resultList
     }
+
+
 
     override fun getPsiIntervencoes(
         minIntervencoes: Int,
