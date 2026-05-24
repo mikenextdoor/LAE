@@ -36,10 +36,9 @@ class ChannelsTest {
         )
 
         val result = queries.getInteracoesByUser(1)
-
         val stats = queries.getNumeroInteracoesAbusivas()
-        assertEquals(1, stats.size)
 
+        assertEquals(1, stats.size)
         assertEquals(1, result.size)
         assertEquals(1, result[0].id)
         assertEquals(true, result[0].abusiva)

@@ -17,7 +17,6 @@ abstract class AbstractClassFormatter<T: Any>(val clazz: KClass<T>) {
 
     @Throws (SQLException::class)
     abstract fun toClassFormatter(rs: ResultSet): List<T>
-
 }
 
 
