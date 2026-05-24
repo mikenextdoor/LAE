@@ -13,7 +13,7 @@ class QueryableClass<T: Any>(
     fun findAll(): Queryable<T> {
         return QueriesQueryable(
             connection,
-            "SELECT * FROM ${tableName.uppercase()}",
+            "SELECT * FROM $tableName",
             buildDynamicClass(clazz)
         )
     }
